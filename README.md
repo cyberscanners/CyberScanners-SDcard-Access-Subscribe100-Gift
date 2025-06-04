@@ -16,4 +16,8 @@ $ pkg install -y coreutils
 
 $ pkg install -y grep
 
-$ git clone 
+$ git clone https://github.com/cyberscanners/CyberScanners-SDcard-Access-Subscribe100-Gift.git
+
+$ cd CyberScanners-SDcard-Access-Subscribe100-Gift
+
+$ bash SD-Access.sh
