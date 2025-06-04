@@ -46,7 +46,11 @@ $ bash SD-Access.sh
 
 $ ls /storage/ 
 
-• ඔබගේ SD card එක /storage/XXXX-XXXX වගේ නම් එහෙම mount වෙලා තියෙයි. (උදා: /storage/4E00-1B23)
+උදා-:
+
+ls /storage/4E00-1B23
+
+• ඔබගේ SD card එක /storage/XXXX-XXXX වගේ නම් එහෙම mount වෙලා තියෙයි. (උදා: /storage/4E00-1B23/0000-0000)
 
 TOOL RUN COMMAND.
 
