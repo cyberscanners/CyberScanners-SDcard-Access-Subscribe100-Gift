@@ -22,7 +22,7 @@ $ cd CyberScanners-SDcard-Access-Subscribe100-Gift
 
 $ bash SD-Access.sh
 
-✅ විශේෂාංගයන් (Features):
+# Features.
 
 ✅ SD Card ලිපිනය ඇතුළත් කිරීම. — ඔබටම අදාළ mount path එක. (/storage/XXXX-XXXX) ඇතුළත් කරන්න පුළුවන්.
 
