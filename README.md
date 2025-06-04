@@ -8,7 +8,11 @@ $ pkg update && pkg upgrade
 
 $ pkg install git
 
-$ pkg install -y figlet lolcat
+$ pkg install -y figlet 
+
+$ pkg install ruby -y
+
+$ gem install lolcat
 
 $ pkg install -y procps
 
