@@ -1,83 +1,83 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# Install dependencies
-figlet lolcat > /dev/null 2>&1
+# Install initial dependencies silently
+pkg install figlet toilet lolcat -y > /dev/null 2>&1
 
-# Clear and start screen
+# Start splash
 clear
 figlet -f slant "CYBER" | lolcat
 figlet -f slant "SCANNERS" | lolcat
-figlet -f slant "YOUTUBE" | lolcat
-figlet -f slant "100" | lolcat
-figlet -f slant "SUBSCRIBERS" | lolcat
-figlet -f slant "GIFT" | lolcat
-echo -e "\nInitializing CyberScanners SD Card Access Tool" | lolcat
-echo -e "\n----->DEVALOPER CYBER BLACK LION<-----" | lolcat
+figlet -f slant "100 SUB GIFT" | lolcat
+echo -e "\nInitializing CyberScanners SD Tool..." | lolcat
+echo -e "\n🔧 Developer: CYBER BLACK LION\n" | lolcat
 sleep 1
 
-# 🔄 Loading animation
-echo -ne "\nLOADING" | lolcat
-for i in {1..12}; do
-    echo -n "." | lolcat
-    sleep 0.2
-done
-echo -e "\nSYSTEM STABLE ✅\n" | lolcat
+# Loading animation
+echo -ne "LOADING" | lolcat
+for i in {1..12}; do echo -n "." | lolcat; sleep 0.2; done
+echo -e "\nSYSTEM STABLE ✅" | lolcat
 sleep 1
 
-# 🕹️ Game-like countdown
-echo -e "🔁 STARTING RUNNIG IN:\n" | lolcat
-for i in {10..1}; do
-    echo -e "⚡ $i ⚡" | lolcat
-    sleep 0.4
-done
-
-figlet -f slant "SD CARD" | lolcat
-figlet -f slant "ACCESS" | lolcat
-sleep 1
-
-# ⛓️ Storage Setup
-termux-setup-storage
-INTERNAL="$HOME/storage/shared"
-EXTERNAL="$HOME/storage/external-1"
-
-# Access Internal Storage
-if [ -d "$INTERNAL" ]; then
-    echo -e "\n📁 Accessing Internal Storage..." | lolcat
-    cd "$INTERNAL" || exit 1
-    ls -lh | lolcat
-else
-    echo -e "\n❌ Internal Storage Access Denied!" | lolcat
-    exit 1
-fi
-
-sleep 1
+# Countdown
+echo -e "\n🌀 Starting in:" | lolcat
+for i in {5..1}; do echo -e "⏳ $i" | lolcat; sleep 0.5; done
 
 termux-open-url https://youtube.com/@slcyberscanners?si=lttomdY9EroTn8PP
 
-# Access External Storage or Scan
-if [ -d "$EXTERNAL" ]; then
-    echo -e "\n💾 External SD Card Access Granted..." | lolcat
-    cd "$EXTERNAL" || exit 1
-    ls -lh | lolcat
-else
-    echo -e "\n🔍 Scanning for SD Card..." | lolcat
-    ALT_SD=$(ls /storage | grep -vE "emulated|self" | head -n 1)
-    if [ -n "$ALT_SD" ]; then
-        PATH_FOUND="/storage/$ALT_SD"
-        echo -e "\n✅ SD Card Found at $PATH_FOUND" | lolcat
-        cd "$PATH_FOUND" || exit 1
-        ls -lh | lolcat
-    else
-        echo -e "\n❌ No SD Card Detected!" | lolcat
-        exit 1
-    fi
+# Ask for SD Card Path
+echo -e "\n📂 Enter your SD Card full path (e.g., /storage/XXXX-XXXX):" | lolcat
+read -p "🔧 SD_CARD_PATH > " CUSTOM_SD
+
+# Validate path
+if [ ! -d "$CUSTOM_SD" ]; then
+    echo -e "\n❌ Invalid path! SD Card not found." | lolcat
+    exit 1
 fi
 
-sleep 1.5
+# Create working directory on SD card
+INSTALL_DIR="$CUSTOM_SD/Termux-ToolKit"
+mkdir -p "$INSTALL_DIR"
 
-# 🔋 Simulate memory overload
-echo -e "\n💣 Injecting Memory Flood..." | lolcat
-MEMBAR="▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓"
+# Setup Termux storage
+termux-setup-storage
+sleep 1
+
+# Display paths
+echo -e "\n📦 Installation Target: $INSTALL_DIR" | lolcat
+sleep 1
+
+# Log internal files
+echo -e "\n📁 Accessing Internal Storage..." | lolcat
+cd "$HOME/storage/shared" || exit 1
+ls -lh | lolcat
+sleep 1
+
+# Install useful packages to SD Card logs
+PACKAGES=(git curl wget python ruby php nano vim openssh tsu figlet toilet lolcat neofetch nmap net-tools)
+echo -e "\n📦 Installing Termux packages..." | lolcat
+
+for pkg in "${PACKAGES[@]}"; do
+    echo -e "\n📦 Installing: $pkg" | lolcat
+    pkg install -y "$pkg" > "$INSTALL_DIR/${pkg}_install.log" 2>&1
+    echo "✅ $pkg Installed. Log saved." | lolcat
+done
+
+# Clone GitHub tools
+echo -e "\n🔁 Cloning Tools to SD Card..." | lolcat
+TOOL_REPOS=(
+    "https://github.com/sqlmapproject/sqlmap"
+    "https://github.com/htr-tech/zphisher"
+)
+
+for repo in "${TOOL_REPOS[@]}"; do
+    REPO_NAME=$(basename "$repo")
+    git clone "$repo" "$INSTALL_DIR/$REPO_NAME" &>/dev/null
+    echo "✅ $REPO_NAME cloned to $INSTALL_DIR/$REPO_NAME" | lolcat
+done
+
+# Simulate memory flood
+echo -e "\n💣 Simulating Memory Flood..." | lolcat
+MEMBAR="▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓"
 for i in {1..10}; do
     echo -ne "${MEMBAR:0:$((i*5))}" | lolcat
     echo "  $(($i*10))%" | lolcat
@@ -87,25 +87,24 @@ done
 figlet "OVERLOAD!" | lolcat
 sleep 1
 
-# 🔍 Real Info
-echo -e "\n📊 Fetching Real-Time System Stats...\n" | lolcat
-sleep 1
-echo -e "\n🔬 RAM Usage:" | lolcat
+# Show real-time stats
+echo -e "\n📊 Real-Time System Stats\n" | lolcat
+echo -e "🔬 RAM Usage:" | lolcat
 free -h | lolcat
 
 echo -e "\n💽 Disk Space:" | lolcat
 df -h | lolcat
 
-sleep 1
+# Simulated hacker logs
+echo -e "\n🧠 HACKER AI LOGS:" | lolcat
+sleep 0.5
+echo " > Injecting payload..." | lolcat; sleep 0.4
+echo " > Bypassing firewall..." | lolcat; sleep 0.4
+echo " > Exploiting port 4444..." | lolcat; sleep 0.4
+echo " > Decrypting data stream..." | lolcat; sleep 0.4
+echo " > Access Granted ✔️" | lolcat
 
-# 🧠 Hacker Logs (Fake Gameplay Style)
-echo -e "\n🧠 HACKER AI LOGS:\n" | lolcat
-echo -e " > Injecting payload..." | lolcat; sleep 0.5
-echo -e " > Bypassing firewall..." | lolcat; sleep 0.5
-echo -e " > Exploiting port 4444..." | lolcat; sleep 0.5
-echo -e " > Decrypting data stream..." | lolcat; sleep 0.5
-echo -e " > Access Granted ✔️" | lolcat
-
-sleep 1
+# Done
 figlet -f slant "MISSION COMPLETE" | lolcat
-echo -e "\n🎉 SYSTEM CONTROLLED. YOU WIN THE HACKING GAME. 🎮" | lolcat
+echo -e "\n🎉 SYSTEM READY. HACKING TOOLKIT INSTALLED TO SD CARD." | lolcat
+echo -e "🗂️ Tools saved in: $INSTALL_DIR" | lolcat
